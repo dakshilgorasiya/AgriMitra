@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Rating } from "@mui/material";
 
 const ProductReviews = ({ review }) => {
@@ -10,13 +8,15 @@ const ProductReviews = ({ review }) => {
         review?.map((review, index) => (
           <div
             key={index}
-            className="border-b py-3 flex flex-row justify-between"
+            className="border-b py-3 flex flex-col md:flex-row justify-between"
           >
             <div className="flex items-center space-x-2">
               <Rating value={review.rating} readOnly />
-              <span className="text-gray-700 font-medium">{review.review}</span>
+              <span className="text-gray-700 font-medium break-words md:truncate">
+                {review.review}
+              </span>
             </div>
-            <div className="flex items-center mt-2">
+            <div className="flex items-center mt-2 md:mt-0">
               <img
                 src={review.profilePicture}
                 alt={review.username}

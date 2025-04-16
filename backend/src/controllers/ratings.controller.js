@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Rating } from "../models/ratings.model.js";
 import { Product } from "../models/product.model.js";
+import mongoose from "mongoose";
 
 const createRating = asyncHandler(async (req, res) => {
     const { rating, review, productId } = req.body;
@@ -55,28 +56,35 @@ const getRatings = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Product ID is required");
     }
 
+    const objectIdProductId = new mongoose.Types.ObjectId(productId);
 
-    const ratings = await Rating.aggregate([{
-        $lookup: {
-            from: "users",
-            localField: "userId",
-            foreignField: "_id",
-            as: "user",
+    const ratings = await Rating.aggregate([
+        {
+            $match: {
+                productId: objectIdProductId, // Match the ObjectId
+            },
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "userId",
+                foreignField: "_id",
+                as: "user",
+            }
+        }, {
+            $unwind: "$user"
+        }, {
+            $project: {
+                _id: 1,
+                rating: 1,
+                review: 1,
+                createdAt: 1,
+                updatedAt: 1,
+                userId: "$user._id",
+                username: "$user.name",
+                profilePicture: "$user.avatar",
+            }
         }
-    }, {
-        $unwind: "$user"
-    }, {
-        $project: {
-            _id: 1,
-            rating: 1,
-            review: 1,
-            createdAt: 1,
-            updatedAt: 1,
-            userId: "$user._id",
-            username: "$user.name",
-            profilePicture: "$user.avatar",
-        }
-    }
     ]);
 
 

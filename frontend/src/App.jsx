@@ -38,6 +38,7 @@ import ContactUs from "./pages/ContactUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ProtectedRoute from "./components/ProtectedRoute";
 import OrderConfirmation from "./components/OrderConformation";
+import PlantLoader from "./components/PlantLoader";
 
 function App() {
   const dispatch = useDispatch();

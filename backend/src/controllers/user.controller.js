@@ -84,8 +84,8 @@ const registerUser = asyncHandler(async (req, res) => {
   // set cookies
   const options = {
     httpOnly: true,
-    secure: false,
-    sameSite: "strict",
+    secure: true,           // ✅ Only send cookie over HTTPS
+    sameSite: "none",       // ✅ Allow cross-site cookies (e.g., Vercel -> Render)
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   };
 
@@ -134,8 +134,8 @@ const loginUser = asyncHandler(async (req, res) => {
   // set cookies
   const options = {
     httpOnly: true,
-    secure: false,
-    sameSite: "strict",
+    secure: true,           // ✅ Only send cookie over HTTPS
+    sameSite: "none",       // ✅ Allow cross-site cookies (e.g., Vercel -> Render)
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   };
 
@@ -181,8 +181,8 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: false,
-    sameSite: "strict",
+    secure: true,           // ✅ Only send cookie over HTTPS
+    sameSite: "none",       // ✅ Allow cross-site cookies (e.g., Vercel -> Render)
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
   };
 

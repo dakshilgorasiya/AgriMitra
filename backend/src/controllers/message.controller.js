@@ -1,8 +1,8 @@
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { Message } from '../models/message.model.js';
-import { ApiError } from '../utils/apiError.js';
+import { ApiError } from '../utils/ApiError.js';
 import { Chat } from '../models/chat.model.js';
-import { ApiResponse } from '../utils/apiResponse.js';
+import { ApiResponse } from '../utils/ApiResponse.js';
 const sendMessage = asyncHandler(async (req, res, next) => {
     const { chatId, content } = req.body;
     if (!chatId || !content) {
